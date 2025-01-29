@@ -5,12 +5,12 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pl.paniodprogramowania.pages.HomePage;
+import pl.paniodprogramowania.pages.BasePage;
 
 
 public class BaseTest {
     protected static WebDriver driver;
-    protected HomePage homePage;
+    protected BasePage basePage;
 
     @BeforeAll
     public static void setUpAll() {
@@ -25,11 +25,12 @@ public class BaseTest {
         }
     }
 
+
     @BeforeEach
     public void setUp() throws InterruptedException {
-        homePage = new HomePage(driver);
+        basePage = new BasePage(driver);
         driver.get("https://www.paniodprogramowania.pl");
         Thread.sleep(2000);
-        homePage.clickCookieAcceptButton();
+        basePage.clickCookieAcceptButton();
     }
 }

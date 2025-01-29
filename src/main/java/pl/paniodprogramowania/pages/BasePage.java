@@ -7,37 +7,33 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.NoSuchElementException;
 
-public class HomePage {
+public class BasePage {
     private final WebDriver driver;
     private final WebDriverWait wait;
 
-    private final By titleLocator = By.tagName("h1");
-    private final By svgLocator = By.cssSelector(".t.k");
-    private final By cookieAcceptButton = By.cssSelector("#__next button");
+    private final By logoButtonMenu = By.cssSelector(".t.k");
+    private final By cookieAcceptButton = By.xpath("/html/body/div[2]/div/section/section/section/div/div/button[1]");
+    private final By moreButton = By.xpath("//*[@id=\"react-aria-:R3j6:\"]/div/div/svg/path");
+    private final By lessonButtonMenu = By.cssSelector(".bd.bh.bf");
+    private final By blogButtonMenu = By.cssSelector(".bd.cf.bf");
+    private final By videoButtonMenu = By.xpath("//div[text()='Wideo']");
+    private final By shopButtonMenu = By.cssSelector(".bd.bh.bf");
+    private final By contactButtonMenu = By.cssSelector(".bd.cf.bf");
 
-    public HomePage(WebDriver driver) {
+
+    public BasePage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // Inicjalizacja WebDriverWait
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     public Boolean isDisplayed() {
         try {
-            WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(svgLocator));
+            WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(logoButtonMenu));
             return element.isDisplayed();
         } catch (Exception e) {
             System.out.println("Element SVG nie jest wyświetlany: " + e.getMessage());
             return false;
-        }
-    }
-
-    public String getTitle() {
-        try {
-            WebElement titleElement = wait.until(ExpectedConditions.visibilityOfElementLocated(titleLocator));
-            return titleElement.getText();
-        } catch (NoSuchElementException e) {
-            return "Title not found";
         }
     }
 
