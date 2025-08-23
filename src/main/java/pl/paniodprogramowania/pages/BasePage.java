@@ -7,43 +7,44 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
-public class BasePage {
-    private final WebDriver driver;
-    private final WebDriverWait wait;
+public abstract class BasePage {
+    protected final WebDriver driver;
+    protected final WebDriverWait wait;
 
-    private final By logoButtonMenu = By.cssSelector(".t.k");
-    private final By cookieAcceptButton = By.xpath("/html/body/div[2]/div/section/section/section/div/div/button[1]");
-    private final By moreButton = By.xpath("//*[@id=\"react-aria-:R3j6:\"]/div/div/svg/path");
-    private final By lessonButtonMenu = By.cssSelector(".bd.bh.bf");
-    private final By blogButtonMenu = By.cssSelector(".bd.cf.bf");
-    private final By videoButtonMenu = By.xpath("//div[text()='Wideo']");
-    private final By shopButtonMenu = By.cssSelector(".bd.bh.bf");
-    private final By contactButtonMenu = By.cssSelector(".bd.cf.bf");
-
-
-    public BasePage(WebDriver driver) {
+    protected BasePage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.wait = new WebDriverWait(driver, defaultTimeout());
     }
 
-    public Boolean isDisplayed() {
-        try {
-            WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(logoButtonMenu));
-            return element.isDisplayed();
-        } catch (Exception e) {
-            System.out.println("Element SVG nie jest wyświetlany: " + e.getMessage());
+    protected boolean isDisplayed(By locator) {
+        List<WebElement> elements = driver.findElements(locator);
+        if (elements.isEmpty()) {
             return false;
         }
+        return elements.get(0).isDisplayed();
     }
 
-    public void clickCookieAcceptButton() {
-        try {
-            WebElement button = wait.until(ExpectedConditions.elementToBeClickable(cookieAcceptButton));
-            button.click();
-            System.out.println("Kliknięto przycisk akceptacji ciasteczek.");
-        } catch (Exception e) {
-            System.out.println("Nie znaleziono lub nie można kliknąć przycisku akceptacji ciasteczek: " + e.getMessage());
-        }
+    protected Duration defaultTimeout() {
+        return Duration.ofSeconds(10);
     }
+
+    protected WebElement waitVisible(By locator) {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    protected WebElement waitClick(By locator) {
+        return wait.until(ExpectedConditions.elementToBeClickable(locator));
+    }
+
+    protected void click(By locator) {
+        waitClick(locator).click();
+    }
+
+    protected boolean exists(By locator) {
+        return !driver.findElements(locator).isEmpty();
+    }
+
+    public abstract boolean isLoaded();
 }

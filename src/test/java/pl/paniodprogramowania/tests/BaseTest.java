@@ -1,37 +1,33 @@
 package pl.paniodprogramowania.tests;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pl.paniodprogramowania.pages.BasePage;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
+public abstract class BaseTest {
+    protected WebDriver driver;
+    protected WebDriverWait wait;
 
-public class BaseTest {
-    protected static WebDriver driver;
-    protected BasePage basePage;
+    protected static final String BASE_URL = "https://paniodprogramowania.pl";
 
-    @BeforeAll
-    public static void setUpAll() {
+    @BeforeMethod
+    public void setUp() {
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+
+        driver = new ChromeDriver(options);
+        driver.get(BASE_URL);
+
     }
 
-    @AfterAll
-    public static void tearDownAll() {
+    @AfterMethod
+    public void tearDown() {
         if (driver != null) {
             driver.quit();
         }
-    }
-
-
-    @BeforeEach
-    public void setUp() throws InterruptedException {
-        basePage = new BasePage(driver);
-        driver.get("https://www.paniodprogramowania.pl");
-        Thread.sleep(2000);
-        basePage.clickCookieAcceptButton();
     }
 }

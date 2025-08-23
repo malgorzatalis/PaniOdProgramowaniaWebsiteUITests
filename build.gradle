@@ -13,11 +13,8 @@ dependencies {
     // Selenium dependency
     implementation 'org.seleniumhq.selenium:selenium-java:4.27.0'
 
-    // JUnit dependencies
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api'
-    testImplementation 'org.junit.jupiter:junit-jupiter-engine'
+    // TestNG dependencies
+    testImplementation 'org.testng:testng:7.10.2'
 
     // WebDriverManager to manage ChromeDriver version
     testImplementation 'io.github.bonigarcia:webdrivermanager:5.8.0'
@@ -25,5 +22,5 @@ dependencies {
 }
 
 test {
-    useJUnitPlatform()
+    useTestNG()
 }

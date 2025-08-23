@@ -1,12 +1,18 @@
 package pl.paniodprogramowania.tests;
 
-import org.junit.jupiter.api.Test;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import pl.paniodprogramowania.pages.CookieBannerPage;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+public class ExampleTest extends BaseTest {
 
-public class ExampleTest extends BaseTest{
     @Test
-    public void openBrowserAndGoToPage() {
-        driver.get("https://www.paniodprogramowania.pl");
+    public void cookieBannerVisibleAndAcceptable(){
+        CookieBannerPage cookieBannerPage = new CookieBannerPage(driver);
+
+        Assert.assertTrue(cookieBannerPage.isLoaded());
+        Assert.assertTrue(cookieBannerPage.acceptIfVisible());
+        Assert.assertFalse(cookieBannerPage.isLoaded());
     }
+
 }
