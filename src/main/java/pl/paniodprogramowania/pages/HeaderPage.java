@@ -54,6 +54,7 @@ public class HeaderPage extends BasePage {
         return driver.findElements(By.cssSelector("nav a"))
                 .stream()
                 .map(WebElement::getText)
+                .filter(s -> !s.isEmpty())
                 .toList();
     }
 

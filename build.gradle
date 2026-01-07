@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'io.qameta.allure' version '2.11.2'
 }
 
 group = 'org.example'
@@ -19,8 +20,25 @@ dependencies {
     // WebDriverManager to manage ChromeDriver version
     testImplementation 'io.github.bonigarcia:webdrivermanager:5.8.0'
 
+    // Allure dependencies
+    testImplementation 'io.qameta.allure:allure-testng:2.27.0'
+
 }
 
 test {
     useTestNG()
+    systemProperty "allure.results.directory", "$buildDir/allure-results"
+}
+
+allure {
+    version = '2.27.0'
+    useTestNG {
+        version = '2.27.0'
+    }
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
