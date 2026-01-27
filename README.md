@@ -1,7 +1,7 @@
 > This project was created with the kind permission of Pani Od Programowania, who kindly agreed to allow UI testing of her website.
 > The tests were developed strictly for educational purposes.
 
-## PaniOdProgramowaniaWebsiteUITests
+## Selenium Web UI Tests
 Automated UI tests for https://paniodprogramowania.pl  
 This repository contains a standalone UI test framework (no application code).
 
